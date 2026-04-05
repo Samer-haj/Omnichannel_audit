@@ -31,18 +31,20 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            background-color: #EAEAEA; /* Screen background */
+            background-color: #EAEAEA;
             line-height: 1.65;
             padding: 2rem;
+            margin: 0;
             display: flex;
             justify-content: center;
         }
 
         .document-wrapper {
-            width: 210mm; /* A4 Width */
+            width: 210mm;
             display: flex;
             flex-direction: column;
             gap: 14mm;
+            align-items: center;
         }
 
         /* --- Typography --- */
@@ -89,16 +91,16 @@
         /* --- Layout Foundations --- */
         .page {
             width: 210mm;
-            height: 297mm;
-            min-height: 297mm; /* A4 Height */
+            min-height: 297mm;
             padding: 20mm;
             position: relative;
             background-color: var(--bg-paper);
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Contains full-bleed elements safely */
+            overflow: visible;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             flex: 0 0 auto;
+            box-sizing: border-box;
         }
 
         .page-break {
@@ -126,6 +128,9 @@
         .cover {
             padding: 0;
             background-color: var(--primary-dark);
+            min-height: 297mm;
+            height: 297mm;
+            overflow: hidden;
         }
 
         .cover-image-wrapper {
@@ -380,7 +385,7 @@
         /* --- Print Rules --- */
         @page {
             size: A4 portrait;
-            margin: 0; 
+            margin: 0;
         }
 
         @media print {
@@ -407,13 +412,12 @@
                 display: block !important;
                 position: relative !important;
                 width: 210mm !important;
-                height: 297mm !important;
                 min-height: 297mm !important;
-                max-height: 297mm !important;
+                height: auto !important;
                 margin: 0 !important;
                 padding: 20mm !important;
                 box-sizing: border-box !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 box-shadow: none !important;
                 page-break-before: auto !important;
                 page-break-after: always !important;
@@ -430,9 +434,12 @@
             }
 
             .cover {
+                min-height: 297mm !important;
+                height: 297mm !important;
                 padding: 0 !important;
                 display: flex !important;
                 flex-direction: column !important;
+                overflow: hidden !important;
             }
 
             .cover-image-wrapper {
@@ -449,8 +456,6 @@
             .cover-image-wrapper .img-cover {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 100% !important;
-                max-height: 100% !important;
                 object-fit: cover !important;
                 object-position: center center !important;
                 display: block !important;
@@ -466,17 +471,17 @@
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: space-between !important;
-            }
-
-            .cover-image-wrapper::after {
-                height: 50% !important;
+                overflow: hidden !important;
             }
 
             .split-hero,
             .image-card-grid,
             .stats-grid,
             .visual-list-item,
-            .journey-step-card {
+            .journey-step-card,
+            .pull-quote,
+            .dark-feature-panel,
+            table {
                 break-inside: avoid-page !important;
                 page-break-inside: avoid !important;
             }
@@ -492,8 +497,17 @@
                 max-width: 100% !important;
             }
 
-            .vl-num { -webkit-text-stroke: 1px var(--text-muted); }
+            .vl-num {
+                -webkit-text-stroke: 1px var(--text-muted);
+            }
         }
+
+        @media screen {
+            .page + .page {
+                margin-top: 0;
+            }
+        }
+
     </style>
 </head>
 <body>

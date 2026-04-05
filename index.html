@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnichannel Marketing Audit - Borrelli Crafters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* --- MAGAZINE VARIABLES --- */
+        :root {
+            --primary-dark: #121E17;
+            --primary-main: #1A3626; 
+            --accent-gold: #C2A060;
+            --accent-muted: #E2D3B6;
+            --bg-paper: #FFFFFF;
+            --bg-offset: #F9F9FA;
+            --text-main: #222222;
+            --text-muted: #555555;
+            --border-thin: #E0E0E0;
+            --border-thick: #121E17;
+        }
+
+        /* --- GLOBAL RESETS --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: #E2E2E2; 
+            line-height: 1.6;
+            padding: 3rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- SCREEN LAYOUT --- */
+        .document-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            width: 210mm;
+            max-width: 100%;
+        }
+
+        /* Explicit page sections. Sized to content naturally, no forced minimums */
+        .page {
+            width: 210mm;
+            background-color: var(--bg-paper);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20mm;
+            position: relative;
+            display: block;
+        }
+
+        /* --- EDITORIAL TYPOGRAPHY --- */
+        .running-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-thin);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2.5rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        p { margin-bottom: 1.2rem; font-size: 0.95rem; }
+        ul { margin-bottom: 1.2rem; padding-left: 1.2rem; font-size: 0.95rem;}
+        li { margin-bottom: 0.5rem; }
+        a { text-decoration: none; color: inherit; }
+        em { font-style: italic; }
+
+        .kicker {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: block;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 0.5rem;
+            width: max-content;
+        }
+
+        .magazine-title {
+            font-size: 3.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        /* Re-engineered Drop Cap for print stability */
+        .drop-cap {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            line-height: 1;
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* --- TARGETED PRINT SAFETY --- */
+        /* Only protect small, unbreakable items to avoid large layout jumps */
+        .protect-card {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        /* --- MAGAZINE LAYOUT COMPONENTS --- */
+        .two-column-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+
+        .text-columns {
+            column-count: 2;
+            column-gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .print-safe-img {
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: cover;
+            background-color: var(--bg-offset);
+            display: block;
+            border: 1px solid var(--border-thin);
+        }
+
+        .full-bleed-wrapper {
+            margin: 2rem -20mm;
+            width: calc(100% + 40mm);
+        }
+
+        .full-bleed-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .quote-block {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            line-height: 1.3;
+            padding: 2rem 0 2rem 2rem;
+            margin: 3rem 0;
+            border-left: 4px solid var(--accent-gold);
+            font-style: italic;
+        }
+
+        /* --- EDITORIAL LIST --- */
+        .editorial-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .editorial-list-item {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .editorial-list-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            line-height: 1;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin: 0;
+            text-align: right;
+        }
+
+        /* --- CONTENT CARDS & PANELS --- */
+        .content-card {
+            background: var(--bg-offset);
+            border: 1px solid var(--border-thin);
+            padding: 2.5rem;
+            border-top: 4px solid var(--primary-main);
+        }
+
+        .feature-panel {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 20mm;
+        }
+
+        .feature-panel h3, .feature-panel h4 { color: white; }
+        .feature-panel p { color: #EAEAEA; }
+        .feature-panel .kicker { border-bottom-color: var(--primary-light); color: var(--accent-gold); }
+
+        .stats-editorial {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 2rem;
+        }
+
+        .stat-card { text-align: left; }
+        .stat-card .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--accent-gold); line-height: 1; margin-bottom: 0.5rem; }
+        .stat-card .stat-desc { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #CCCCCC; font-weight: 500;}
+
+        /* --- COVER PAGE (FIXED A4) --- */
+        .cover-page {
+            padding: 0;
+            background-color: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            height: 297mm;
+            overflow: hidden; 
+        }
+
+        .cover-image-wrapper {
+            height: 55%;
+            width: 100%;
+            position: relative;
+        }
+
+        .cover-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .cover-content {
+            height: 45%;
+            padding: 20mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-paper);
+        }
+
+        .cover-content h1 { color: var(--primary-dark); font-size: 3.6rem; font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -1px; }
+        .cover-content h3 { color: var(--text-muted); font-weight: 300; font-family: 'Inter', sans-serif; font-size: 1.5rem; }
+        
+        .cover-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            border-top: 2px solid var(--border-thick);
+            padding-top: 1.5rem;
+        }
+
+        /* --- TABLE OF CONTENTS --- */
+        .toc-list { list-style: none; padding: 0; margin-top: 2rem; }
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .toc-item::after {
+            content: ""; position: absolute; bottom: 6px; left: 0; right: 0; height: 1px;
+            border-bottom: 1px dotted var(--text-muted);
+            z-index: 1;
+        }
+        .toc-text { background: var(--bg-paper); padding-right: 1rem; color: var(--primary-dark); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; z-index: 2; transition: color 0.2s ease;}
+        .toc-item a:hover .toc-text { color: var(--accent-gold); }
+
+        /* --- CLEAN EDITORIAL JOURNEY TIMELINE --- */
+        .editorial-timeline {
+            position: relative;
+            margin: 2rem 0 2rem 1.5rem;
+            border-left: 2px solid var(--border-thin);
+            padding-left: 2.5rem;
+        }
+
+        .journey-stage-card {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: calc(-2.5rem - 11px); 
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-main);
+            border: 4px solid var(--bg-paper);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .journey-stage-card .step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            position: absolute;
+            left: -5.5rem;
+            top: -0.2rem;
+        }
+
+        .journey-stage-card .step-header { margin-bottom: 1rem; }
+        .journey-stage-card .step-title { font-size: 1.4rem; margin-bottom: 0.2rem; color: var(--primary-dark); }
+        .journey-stage-card .step-owner { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; }
+        .journey-stage-card .step-content p { margin-bottom: 0.8rem; }
+
+        .timeline-gap-alert {
+            background: var(--bg-offset);
+            border-left: 3px solid #D66A44;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        /* --- PRINT-SAFE TABLES --- */
+        .print-safe-table {
+            width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.95rem;
+        }
+        .print-safe-table th { text-align: left; padding: 1rem 0; border-bottom: 2px solid var(--border-thick); font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--primary-dark);}
+        .print-safe-table td { padding: 1.5rem 0; border-bottom: 1px solid var(--border-thin); vertical-align: top; }
+        .print-safe-table td:first-child { font-weight: 600; color: var(--primary-dark); width: 30%; padding-right: 2rem;}
+        
+        /* --- EXPLICIT PAGE COMPOSITION FOR PRINT --- */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .document-wrapper {
+                width: 100% !important;
+                gap: 0 !important;
+                display: block !important;
+            }
+
+            /* Each .page div represents exactly one printed sheet or sequence.
+               Height flows naturally. Break forces separation. 
+            */
+            .page {
+                width: 210mm !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                box-shadow: none !important;
+                border: none !important;
+                position: relative !important;
+                display: block !important;
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+
+            .page.cover-page {
+                height: 297mm !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+            }
+
+            .full-bleed-wrapper, .feature-panel {
+                margin-left: -20mm !important;
+                margin-right: -20mm !important;
+                width: 210mm !important;
+            }
+            
+            .feature-panel {
+                padding-left: 20mm !important;
+                padding-right: 20mm !important;
+                box-sizing: border-box !important;
+            }
+
+            a { text-decoration: none !important; color: inherit !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-wrapper">
+
+        <!-- PAGE 1: COVER -->
+        <div class="page cover-page">
+            <div class="cover-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Luxury Custom Home">
+            </div>
+            <div class="cover-content">
+                <div>
+                    <span class="kicker">Marketing Strategy Report</span>
+                    <h1>Omnichannel<br>Marketing Audit</h1>
+                    <h3>Borrelli Crafters</h3>
+                </div>
+                <div class="cover-meta">
+                    <div>
+                        <strong>Academic Context</strong>
+                        <p style="margin:0;">Omni-Channel Marketing MARK4024</p>
+                        <p style="margin:0;">Professor: Stephanie Wallace</p>
+                    </div>
+                    <div>
+                        <strong>Prepared By Group #7</strong>
+                        <p style="margin:0;">Samer Haj Hussen, Ayah Aboudeeb</p>
+                        <p style="margin:0;">Yue Huang, Faisal Saeed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: TABLE OF CONTENTS -->
+        <div class="page" id="toc-page">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Document Overview</span>
+            <h2 class="magazine-title">Table of Contents</h2>
+            
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#exec-summary"><span class="toc-text">1. Executive Summary</span></a></li>
+                <li class="toc-item"><a href="#repositioning"><span class="toc-text">2. The Repositioning Strategy</span></a></li>
+                <li class="toc-item"><a href="#business-overview"><span class="toc-text">3. Business Overview</span></a></li>
+                <li class="toc-item"><a href="#competitive-landscape"><span class="toc-text">4. Competitive Landscape</span></a></li>
+                <li class="toc-item"><a href="#market-segmentation"><span class="toc-text">5. Market Segmentation Overview</span></a></li>
+                <li class="toc-item"><a href="#persona-page"><span class="toc-text">6. Target Persona Profile</span></a></li>
+                <li class="toc-item"><a href="#customer-segmentation"><span class="toc-text">7. Customer Segmentation Strategy</span></a></li>
+                <li class="toc-item"><a href="#journey-acquisition"><span class="toc-text">8. Journey Map: Acquisition</span></a></li>
+                <li class="toc-item"><a href="#journey-post-purchase"><span class="toc-text">9. Journey Map: Post-Purchase</span></a></li>
+                <li class="toc-item"><a href="#future-state"><span class="toc-text">10. Future State & Recommendations</span></a></li>
+                <li class="toc-item"><a href="#references"><span class="toc-text">11. References</span></a></li>
+                <li class="toc-item" style="margin-top: 3rem;"><a href="#appendix-1"><span class="toc-text" style="color: var(--text-muted);">Appendix 1: Segmentation Infographic</span></a></li>
+                <li class="toc-item"><a href="#appendix-2"><span class="toc-text" style="color: var(--text-muted);">Appendix 2: Buyer Journey Map Analysis</span></a></li>
+            </ul>
+        </div>
+
+        <!-- PAGE 3: EXECUTIVE SUMMARY -->
+        <div class="page" id="exec-summary">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 01</span>
+            <h2 class="magazine-title">Executive Summary</h2>
+
+            <div class="two-column-section">
+                <div>
+                    <p><span class="drop-cap">T</span>his report evaluates how Borrelli Crafters can improve its overall customer journey across different marketing channels in order to reach its goal of increasing awareness and achieving $2.5 million in annual revenue by 2027.</p>
+                    <p>Borrelli Crafters already has a strong foundation. The company offers high-quality custom homes, is led by a Red Seal certified craftsman, and focuses on sustainability and long-term value. However, the issue is not the quality of the service. It is how that value is communicated and experienced across different customer touchpoints.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Woodworking Craftsmanship" class="print-safe-img">
+            </div>
+
+            <h3 style="font-size: 2rem; margin-top: 3rem; border-bottom: 2px solid var(--border-thick); padding-bottom: 0.8rem;">Identified Problems</h3>
+            <p>From the audit, three main problems were identified in the customer experience.</p>
+            
+            <div class="editorial-list">
+                <div class="editorial-list-item protect-card">
+                    <div class="editorial-list-num">1</div>
+                    <div class="editorial-list-content">
+                        <h4>Low Visibility & Trust-Building</h4>
+                        <p>Weak trust-building at the awareness stage. The website and digital presence do not clearly explain the value of Red Seal certification, and there is limited educational content to help potential clients understand why Borrelli is different.</p>
+                    </div>
+                </div>
+                
+                <div class="editorial-list-item protect-card">
+                    <div class="editorial-list-num">2</div>
+                    <div class="editorial-list-content">
+                        <h4>High Friction in Consideration</h4>
+                        <p>Customers feel unsure about pricing, timelines, and the building process. Because of this, they rely heavily on referrals or direct conversations instead of being guided through a clear digital system.</p>
+                    </div>
+                </div>
+
+                <div class="editorial-list-item protect-card">
+                    <div class="editorial-list-num">3</div>
+                    <div class="editorial-list-content">
+                        <h4>No Structured Post-Purchase Journey</h4>
+                        <p>Communication depends heavily on the founder, and there are no scalable systems in place for follow-ups, referrals, or long-term engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: REPOSITIONING STRATEGY -->
+        <div class="page" id="repositioning">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 02</span>
+            <h2 class="magazine-title">The Repositioning Strategy</h2>
+
+            <p style="font-size: 1.1rem;">To address these issues, this report recommends repositioning Borrelli Crafters as a <strong>trust-focused, process-driven brand</strong> supported by a stronger omnichannel strategy.</p>
+
+            <div class="full-bleed-wrapper">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Finished Luxury Home Interior" class="full-bleed-img" style="max-height: 450px;">
+            </div>
+
+            <div class="content-card">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.6rem;">Strategic Implementation</h3>
+                <ul style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8;">
+                    <li><strong>Improving Visibility:</strong> Focusing on SEO and educational content that highlights the tangible benefits of Red Seal craftsmanship.</li>
+                    <li><strong>Reducing Uncertainty:</strong> Developing clearer processes, planning guides, and pricing frameworks that answer client questions proactively.</li>
+                    <li><strong>Building Relationships:</strong> Implementing better communication platforms and formalized referral systems to maintain post-purchase momentum.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 3rem; border-top: 1px solid var(--border-thin); padding-top: 2rem;">
+                <p style="font-size: 1.1rem; color: var(--primary-dark); font-weight: 500; font-style: italic;">If these changes are implemented, Borrelli Crafters can improve lead generation, increase conversions, and build stronger relationships with clients, ultimately supporting its revenue goal while solidifying its status as a premium brand.</p>
+            </div>
+        </div>
+
+        <!-- PAGE 5: BUSINESS OVERVIEW -->
+        <div class="page" id="business-overview">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 03</span>
+            <h2 class="magazine-title">Business Overview</h2>
+            
+            <p>The purpose of this audit is to evaluate how effectively Borrelli Crafters currently delivers a consistent and integrated customer experience across its marketing and communication channels. This report focuses on identifying gaps in the customer journey, understanding where potential clients experience friction, and recommending improvements that can help the business attract, convert, and retain high-value customers more effectively.</p>
+
+            <div class="full-bleed-wrapper feature-panel">
+                <span class="kicker">Objectives & Goals</span>
+                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">Targeting $2.5M by 2027</h3>
+                <p>Borrelli Crafters’ overall business goal is to increase awareness in the Marmora and surrounding area and grow revenue to $2.5 million annually by 2027. To support this goal, several SMART marketing objectives are proposed. Together, these objectives directly support the company’s growth by improving visibility, building trust, and increasing conversion efficiency.</p>
+                
+                <div class="stats-editorial">
+                    <div class="stat-card protect-card">
+                        <div class="stat-num">50%</div>
+                        <div class="stat-desc">Web Traffic<br>Increase</div>
+                    </div>
+                    <div class="stat-card protect-card">
+                        <div class="stat-num">3%</div>
+                        <div class="stat-desc">Target<br>Conversion</div>
+                    </div>
+                    <div class="stat-card protect-card">
+                        <div class="stat-num">30</div>
+                        <div class="stat-desc">Qualified<br>Leads / Mo</div>
+                    </div>
+                    <div class="stat-card protect-card">
+                        <div class="stat-num">20%</div>
+                        <div class="stat-desc">Referral<br>Leads Target</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column-section" style="margin-top: 3rem;">
+                <div class="protect-card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Organizational Structure</h3>
+                    <p style="color: var(--text-muted);">Borrelli Crafters operates with a lean, founder-led structure. The company is led by Matt Borrelli, who serves as both founder and lead craftsman. While this allows for strong quality control, it also means that client communication, sales, and marketing are heavily dependent on the founder.</p>
+                </div>
+                <div class="protect-card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">The Technology Gap</h3>
+                    <p style="color: var(--text-muted);">Currently, Borrelli Crafters does not use any formal marketing technology tools. There is no CRM system in place to track leads or manage customer relationships, and there are no automation tools. Most processes are handled manually, which limits efficiency and scalability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 6: COMPETITIVE LANDSCAPE -->
+        <div class="page" id="competitive-landscape">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 04</span>
+            <h2 class="magazine-title">Competitive Landscape</h2>
+            
+            <div class="text-columns">
+                <p>Borrelli Crafters operates in a highly competitive and fragmented market, where many builders rely on reputation, referrals, and local presence to attract clients. Key competitors include Gilbert + Burke, Timberline Custom Homes, R. Moore Homes, and Bosiak Construction.</p>
+                <p>These companies represent strong regional players that target similar high-value customers and position themselves around quality, experience, and trust. Across these competitors, several common marketing channels are used to attract and communicate with customers.</p>
+            </div>
+
+            <table class="print-safe-table" style="margin-top: 2rem;">
+                <tr>
+                    <th>Competitive Advantage</th>
+                    <th>Observed Industry Best Practices</th>
+                </tr>
+                <tr class="protect-card">
+                    <td>Process Clarity</td>
+                    <td>Successful competitors make their building process clear and easy to understand, which helps reduce uncertainty for potential clients.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td>Proof of Work</td>
+                    <td>They provide strong visual and written proof of their work through case studies and project storytelling.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td>Thought Leadership</td>
+                    <td>They use educational content to position themselves as experts rather than just service providers.</td>
+                </tr>
+            </table>
+
+            <div class="quote-block">
+                The main takeaway is that competitors are effective not only because of what they build, but because of how well they communicate their expertise. Borrelli Crafters must better showcase its unique advantage: its Red Seal certified craftsmanship.
+            </div>
+        </div>
+
+        <!-- PAGE 7: MARKET SEGMENTATION -->
+        <div class="page" id="market-segmentation">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 05</span>
+            <h2 class="magazine-title">Market Segmentation Overview</h2>
+            
+            <p>Market segmentation involves dividing a broad market into smaller, more homogeneous groups based on shared characteristics. In industries such as custom homebuilding, segmentation is particularly critical because purchasing decisions are high-involvement, high-risk, and infrequent.</p>
+            <p>Borrelli Crafters targets two primary market segments: "Wealthy and Wise" and "Big Fish, Small Pond." These can be strategically unified into a single, high-value audience defined as <strong>Legacy-Driven Landowners</strong>.</p>
+            
+            <div class="full-bleed-wrapper">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Premium Forest Home" class="full-bleed-img" style="height: 300px;">
+            </div>
+
+            <div class="two-column-section" style="margin-top: 3rem;">
+                <div class="protect-card">
+                    <span class="kicker" style="color: var(--text-muted); border-bottom-color: var(--text-muted);">Demographics & Geography</span>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">The Profile</h4>
+                    <ul style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0;">
+                        <li>Age 38 to 68, HHI $200,000 to $500,000+</li>
+                        <li>Net Worth $1M+</li>
+                        <li>Executives, business owners, senior professionals</li>
+                        <li>Seeking rural and exurban Ontario</li>
+                        <li>Purchasing large properties (forested, waterfront)</li>
+                    </ul>
+                </div>
+                <div class="protect-card">
+                    <span class="kicker" style="color: var(--text-muted); border-bottom-color: var(--text-muted);">Psychographics & Behaviour</span>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">The Mindset</h4>
+                    <ul style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0;">
+                        <li>Quality-focused, not trend-driven</li>
+                        <li>Risk-averse but highly value-oriented</li>
+                        <li>Strong appreciation for certified trades</li>
+                        <li>Long research and consideration cycles</li>
+                        <li>Heavy reliance on referrals and reputation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.05rem; font-weight: 500; text-align: center; margin-top: 2rem;">These customers view homebuilding not as a transactional purchase, but as a strategic, long-term investment, often tied to family legacy, lifestyle quality, and asset preservation.</p>
+        </div>
+
+        <!-- PAGE 8: PERSONA PROFILE -->
+        <div class="page" id="persona-page">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 06</span>
+            <h2 class="magazine-title">Target Persona Profile</h2>
+
+            <div class="content-card" style="margin-top: 2rem; border-top: 4px solid var(--accent-gold);">
+                <h3 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-dark);">Richard & Elizabeth</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">Richard and Elizabeth are affluent, late-career professionals in their late 50s with a household income of approximately $325,000. They own a large, forested property in the Marmora region and are seeking to build a high-quality custom home that reflects long-term value, durability, and lifestyle goals. Their decision-making is highly deliberate, driven by a strong emphasis on working with certified professionals to reduce risk and ensure build quality.</p>
+                
+                <div class="two-column-section" style="margin-bottom: 0;">
+                    <div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Core Motivations</h4>
+                        <ul style="font-size: 0.95rem; color: var(--text-muted);">
+                            <li>Creating a multi-generational legacy home</li>
+                            <li>Protecting their financial investment</li>
+                            <li>Partnering with a builder who demonstrates credibility, transparency, and craftsmanship</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Brand & Service Affinities</h4>
+                        <ul style="font-size: 0.95rem; color: var(--text-muted);">
+                            <li>Drawn to heritage brands and formal credentials</li>
+                            <li>Prefer quiet luxury over flashy trends</li>
+                            <li>Expect premium service delivery, clear communication, and professionalism</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-block">
+                They are less sensitive to price and more focused on trust, process clarity, and long-term outcomes. They rely heavily on referrals and prefer educational, consultative interactions over traditional sales approaches.
+            </div>
+        </div>
+
+        <!-- PAGE 9: CUSTOMER SEGMENTATION -->
+        <div class="page" id="customer-segmentation">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 07</span>
+            <h2 class="magazine-title">Customer Segmentation Strategy</h2>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Given the characteristics of this segment, Borrelli should adopt a Customer Lifetime Value (CLV) approach that prioritizes long-term relationships over one-time transactions.</p>
+
+            <div class="full-bleed-wrapper feature-panel">
+                <span class="kicker" style="color: var(--accent-gold); border-bottom-color: var(--primary-light);">Primary Targets</span>
+                <h3 style="font-size: 2.2rem; margin-bottom: 2.5rem;">Priority Growth Segments</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;">
+                    <div class="protect-card">
+                        <h4 style="color: var(--accent-gold); font-size: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">Advocates</h4>
+                        <p style="font-size: 0.95rem; margin-bottom: 0;">Highly satisfied customers who actively refer others and have strong trust in craftsmanship.</p>
+                    </div>
+                    <div class="protect-card">
+                        <h4 style="color: var(--accent-gold); font-size: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">Loyalists</h4>
+                        <p style="font-size: 0.95rem; margin-bottom: 0;">Repeat clients who demonstrate ongoing engagement with the brand for secondary projects.</p>
+                    </div>
+                    <div class="protect-card">
+                        <h4 style="color: var(--accent-gold); font-size: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">Potential</h4>
+                        <p style="font-size: 0.95rem; margin-bottom: 0;">First-time clients exhibiting high potential for future projects and relationship building.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 2rem; margin-top: 3rem; margin-bottom: 1.5rem;">Lower Priority Segments</h3>
+            <p>While Borrelli should prioritize high-value customers, it is equally important to identify segments that do not align with its premium positioning.</p>
+            
+            <div class="two-column-section" style="margin-top: 2rem;">
+                <div class="protect-card" style="border-top: 2px solid var(--border-thick); padding-top: 1.5rem;">
+                    <h4 style="font-size: 1.4rem; margin-bottom: 1rem;">Transactional Clients</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Primarily price-driven and focused on minimizing upfront costs rather than evaluating long-term value. Borrelli should selectively accept only profitable projects from this segment.</p>
+                </div>
+                <div class="protect-card" style="border-top: 2px solid var(--border-thick); padding-top: 1.5rem;">
+                    <h4 style="font-size: 1.4rem; margin-bottom: 1rem;">At-Risk Clients</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Clients who show reduced engagement or satisfaction. Borrelli should implement targeted re-engagement strategies for high-value clients to rebuild trust.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 10: JOURNEY MAP (ACQUISITION) -->
+        <div class="page" id="journey-acquisition">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 08</span>
+            <h2 class="magazine-title" style="margin-bottom: 1rem;">Journey Map: Acquisition</h2>
+            <p style="margin-bottom: 3rem; font-size: 1.1rem;">The following details the customer journey for Richard and Elizabeth, mapping their pain points, touchpoints, internal ownership, and critical gaps across the first five stages.</p>
+
+            <div class="editorial-timeline">
+                
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">01</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Awareness</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Marketing Strategist</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Wary of "cowboy contractors" who provide low-quality work. Desires a builder with national credentials (Red Seal) to protect his investment.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">Borrelli’s website lacks educational content explaining the value of Red Seal certification.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">02</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Interest</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Marketing Manager</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Frustrated by portfolios that only show "finished" aesthetics and desires to see the "bones" of the house.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">The communication regarding the value of certifications is currently unclear. Most content focuses on the final end result rather than the hidden quality of the build.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">03</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Engagement</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Sales Lead</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Difficulty verifying the authenticity of craftsmanship claims. Desires to see concrete proof of craftsmanship.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">There is a significant lack of detailed case studies that go beyond final photos to explain the technical execution and craftsmanship involved.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">04</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Consideration</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Founder</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Strong price anxiety due to unclear project scope. Desires an early, rough price estimate.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">There is limited educational or process-oriented content available to ease the persona's technical concerns. Missed opportunity to showcase Matt's approachable personality.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card" style="margin-bottom: 0;">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">05</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Conversion</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Sales Lead</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Fears "leaky bucket" pricing and project risks. Desires cost transparency and reliability.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">Over-reliance on manual effort. Lacks visualization technology to justify the premium.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PAGE 11: JOURNEY MAP (POST-PURCHASE) -->
+        <div class="page" id="journey-post-purchase">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 09</span>
+            <h2 class="magazine-title" style="margin-bottom: 1rem;">Journey Map: Post-Purchase</h2>
+            <p style="margin-bottom: 3rem; font-size: 1.1rem;">Mapping the operational build phase through to long-term advocacy.</p>
+
+            <div class="editorial-timeline">
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">06</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Onboarding</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Project Manager</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> High communication burden due to a lack of centralized tools. Desires real-time updates.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">Inefficient communication and difficulty balancing on-site execution with client contact.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">07</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Loyalty</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Site Supervisor</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Fears communication blackouts and hidden structural defects. Desires psychological peace of mind.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">The "Communication Black Hole": a lack of updates during technical phases where visual progress is slow.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">08</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Development</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Account Lead</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Fears being treated as just another transaction. Desires a deep, ongoing partnership.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">Lack of a formalized relationship-building strategy to maximize long-term lifetime value.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">09</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Advocacy</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Marketing Team</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Fears social reputational risk if a referral results in a poor experience. Desires to feel like a tastemaker.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">Lack of a formalized referral and testimonial system to capture advocacy at the peak of satisfaction.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-stage-card protect-card" style="margin-bottom: 0;">
+                    <div class="timeline-marker"></div>
+                    <div class="step-num">10</div>
+                    <div class="step-header">
+                        <h3 class="step-title">Win-back</h3>
+                    </div>
+                    <span class="step-owner">Internal Ownership: Relationship Mgr</span>
+                    <div class="step-content">
+                        <p><strong>Pain Points & Desires:</strong> Fearing that once the project is over, he is "just a number." Desires a long-term relationship.</p>
+                        <div class="timeline-gap-alert">
+                            <strong>Identified Gap</strong>
+                            <p style="margin: 0; font-size: 0.9rem; font-style: italic;">No automated CRM follow-up; the brand goes silent after the final payment.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PAGE 12: FUTURE STATE -->
+        <div class="page" id="future-state">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 10</span>
+            <h2 class="magazine-title">Future State & Recommendations</h2>
+            
+            <p class="drop-cap">T</p><p style="margin-top: 0.4rem;">o support growth, the future customer journey must create a trust-building experience at every stage. This transforms confusion into confidence.</p>
+
+            <div class="full-bleed-wrapper">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Finished Luxury Home Interior" class="full-bleed-img">
+            </div>
+
+            <div class="two-column-section" style="margin-top: 3rem;">
+                <div class="protect-card">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Future State Enhancements</h3>
+                    <ul style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">
+                        <li><strong>Awareness:</strong> SEO improvements and educational content establishes authority and increases discoverability.</li>
+                        <li><strong>Interest:</strong> Website case studies, project galleries, and testimonial videos demonstrate craftsmanship.</li>
+                        <li><strong>Consideration:</strong> Downloadable planning guides and pricing frameworks reduce uncertainty.</li>
+                        <li><strong>Post-Purchase:</strong> Digital client portal with progress updates, timelines, and communication tools improves transparency.</li>
+                        <li><strong>Advocacy:</strong> Referral programs and follow-up campaigns convert satisfied clients into brand advocates.</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-panel protect-card">
+                    <span class="kicker" style="color: var(--accent-gold); border-bottom-color: var(--primary-light);">Action Plan</span>
+                    <h3 style="color: white; font-size: 1.8rem; margin-bottom: 2rem;">5 Recommendations</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <strong style="color: var(--accent-gold); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">1. Implement a CRM system</strong>
+                        <span style="font-size: 0.9rem; color: #E0E0E0;">To manage leads and automate follow-up processes.</span>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <strong style="color: var(--accent-gold); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">2. Content strategy</strong>
+                        <span style="font-size: 0.9rem; color: #E0E0E0;">Create materials that educate prospects on the value of Red Seal certification.</span>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <strong style="color: var(--accent-gold); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">3. Standardize the sales process</strong>
+                        <span style="font-size: 0.9rem; color: #E0E0E0;">Introduce clear pricing frameworks and planning guides.</span>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <strong style="color: var(--accent-gold); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">4. Communication platform</strong>
+                        <span style="font-size: 0.9rem; color: #E0E0E0;">Provide consistent updates, bridging the technical phase communication gap.</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-gold); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">5. Referral program</strong>
+                        <span style="font-size: 0.9rem; color: #E0E0E0;">Formalize post-purchase systems to capture advocacy.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; border-top: 1px solid var(--border-thin); padding-top: 2rem;">
+                <p style="font-size: 1.1rem; color: var(--primary-dark); font-weight: 500; font-style: italic;">Borrelli Crafters already has the most important asset: a reputation for craftsmanship and quality. By strengthening its omnichannel strategy, the company can transform this expertise into a scalable growth engine.</p>
+            </div>
+        </div>
+
+        <!-- PAGE 13: REFERENCES -->
+        <div class="page" id="references">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <span class="kicker">Section 11</span>
+            <h2 class="magazine-title" style="margin-bottom: 1rem;">References</h2>
+            <ul style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; margin-top: 2rem; list-style-type: none; padding-left: 0;">
+                <li class="protect-card">Berger, J. (2014). Contagious: Why things catch on. Simon & Schuster.</li>
+                <li class="protect-card">Borrelli Crafters. (2026). Segmentation infographic: Legacy-Driven Landowners.</li>
+                <li class="protect-card">Esri. (2025). PRIZM segmentation methodology.</li>
+                <li class="protect-card">Google. (2015). Micro-moments: Your guide to winning the shift to mobile. Think with Google.</li>
+                <li class="protect-card">Government of Canada. (n.d.). Red Seal Program: Interprovincial standards.</li>
+                <li class="protect-card">Kapferer, J. N., & Bastien, V. (2012). The luxury strategy: Break the rules of marketing to build luxury brands. Kogan Page.</li>
+                <li class="protect-card">Kotler, P., & Keller, K. L. (2016). Marketing management (15th ed.). Pearson.</li>
+                <li class="protect-card">Kumar, V., & Reinartz, W. (2016). Customer relationship management: Concept, strategy, and tools. Springer.</li>
+                <li class="protect-card">Leeds Observatory. (n.d.). Customer segmentation: Country living.</li>
+                <li class="protect-card">Lemon, K. N., & Verhoef, P. C. (2016). Understanding customer experience throughout the customer journey. Journal of Marketing, 80 (6), 69-96.</li>
+                <li class="protect-card">McKinsey & Company. (2016). The customer decision journey. McKinsey Marketing & Sales.</li>
+                <li class="protect-card">Mitchell, V. W. (1999). Consumer perceived risk: Conceptualisations and models. European Journal of Marketing, 33 (1/2), 163-195.</li>
+                <li class="protect-card">National Association of Home Builders. (2023). What home buyers really want.</li>
+                <li class="protect-card">Pulizzi, J. (2023). The strategic importance of content in building client trust. Content Marketing Institute.</li>
+                <li class="protect-card">Reinartz, W., & Kumar, V. (2002). The mismanagement of customer loyalty. Harvard Business Review, 80 (7), 86-94.</li>
+            </ul>
+        </div>
+
+        <!-- PAGE 14: APPENDIX 1 -->
+        <div class="page" id="appendix-1">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <div class="full-bleed-wrapper feature-panel" style="margin-top: -20mm; margin-bottom: 2rem;">
+                <span class="kicker" style="color: var(--accent-gold); border-bottom-color: var(--primary-light);">Appendix 01</span>
+                <h2 class="magazine-title" style="color: white; border-bottom: none; margin-bottom: 0;">Segmentation Infographic</h2>
+            </div>
+            
+            <div class="content-card protect-card">
+                <h4 style="color: var(--primary-dark); font-size: 1.6rem; margin-bottom: 1rem;">Legacy-Driven Landowners</h4>
+                <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">Affluent rural homeowners who prioritize craftsmanship, longevity, and peace of mind over price or trends.</p>
+                
+                <h5 style="color: var(--primary-dark); font-family: 'Inter', sans-serif; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.8rem; font-size: 0.85rem;">Why This Segment Matters:</h5>
+                <ul style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0;">
+                    <li>High financial capacity for custom builds</li>
+                    <li>Long-term mindset aligns with Red Seal craftsmanship</li>
+                    <li>Lower price sensitivity when value is proven</li>
+                    <li>Strong referral potential within tight-knit rural/exurban communities</li>
+                </ul>
+            </div>
+
+            <div class="two-column-section" style="margin-top: 2rem;">
+                <div class="protect-card">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Demographics</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                        <li><strong>Age:</strong> 38-68 Years old</li>
+                        <li><strong>Household Income:</strong> $200K-$500K+</li>
+                        <li><strong>Net Worth:</strong> $1M+</li>
+                        <li><strong>Life Stage:</strong> Established families, Empty Nesters, Multigenerational Planners</li>
+                        <li><strong>Education:</strong> Post-secondary or professional credentials</li>
+                        <li><strong>Occupation:</strong> Executives, business owners, senior professionals</li>
+                    </ul>
+                </div>
+                <div class="protect-card">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Geographic</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                        <li>Rural & exurban Ontario</li>
+                        <li>Small towns and cottage regions</li>
+                        <li>Properties with large lots, waterfront, or forested land</li>
+                        <li>Often building on already-owned land</li>
+                    </ul>
+                </div>
+                <div class="protect-card">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Psychographic</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                        <li>Quality-focused, not trend-driven</li>
+                        <li>Risk-averse but value-oriented</li>
+                        <li>Strong appreciation for skilled trades & credentials</li>
+                        <li>Environmentally responsible in a practical way</li>
+                        <li>Views homebuilding as a legacy investment</li>
+                    </ul>
+                </div>
+                <div class="protect-card">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-thin); padding-bottom: 0.5rem;">Behavioural</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                        <li>Long research and consideration cycle</li>
+                        <li>Heavily influenced by referrals and credentials</li>
+                        <li>High trust in certifications (e.g., Red Seal)</li>
+                        <li>Late-stage decision-makers, when they make contact</li>
+                        <li>Willing to pay more to avoid costly mistakes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 15: APPENDIX 2 -->
+        <div class="page" id="appendix-2">
+            <div class="running-header">
+                <span>Omnichannel Marketing Audit</span>
+                <span>Borrelli Crafters</span>
+            </div>
+            
+            <div class="full-bleed-wrapper feature-panel" style="margin-top: -20mm; margin-bottom: 2rem;">
+                <span class="kicker" style="color: var(--accent-gold); border-bottom-color: var(--primary-light);">Appendix 02</span>
+                <h2 class="magazine-title" style="color: white; border-bottom: none; margin-bottom: 0;">10-Stage Buyer Journey Map Analysis</h2>
+            </div>
+            
+            <table class="print-safe-table" style="font-size: 0.85rem; margin-top: 0;">
+                <tr>
+                    <th style="width: 25%;">Stage & Ownership</th>
+                    <th style="width: 35%;">Pain Points and Desires</th>
+                    <th style="width: 40%;">Gaps and Micro Moments</th>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>1. Awareness</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Marketing Strategist</span></td>
+                    <td>Fears cowboy contractors. Desires Red Seal credentials.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Website lacks educational content on Red Seal value.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>2. Interest</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Marketing Manager</span></td>
+                    <td>Needs to see the bones of the house, not just finished aesthetics.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Communication regarding certification value is unclear.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>3. Engagement</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Sales Lead</span></td>
+                    <td>Desires concrete proof of craftsmanship quality.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Lack of detailed case studies explaining technical execution.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>4. Consideration</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Founder</span></td>
+                    <td>Price anxiety. Desires rough estimate and actionable plan.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Limited process-oriented content to ease technical concerns early on.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>5. Conversion</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Sales Lead</span></td>
+                    <td>Fears leaky bucket pricing. Desires cost transparency.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Lack of visualization tech to justify premium easily.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>6. Onboarding</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Project Manager</span></td>
+                    <td>Desires real time updates to avoid constant manual check ins.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Inefficient communication balancing on-site work and client contact.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>7. Loyalty</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Site Supervisor</span></td>
+                    <td>Fears communication blackouts during slow visible phases.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> The Communication Black Hole during technical build phases.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>8. Development</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Customer Service</span></td>
+                    <td>Desires proactive relationship building beyond basic updates.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Lack of formalized relationship-building strategy.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>9. Advocacy</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Marketing Team</span></td>
+                    <td>Fears social reputational risk if referral goes bad.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> No formalized referral system to capture peak satisfaction.</td>
+                </tr>
+                <tr class="protect-card">
+                    <td><strong>10. Win back</strong><br><span style="color: var(--text-muted); font-weight: normal; font-size: 0.75rem;">Relationship Mgr</span></td>
+                    <td>Desires long-term relationship for maintenance or secondary builds.</td>
+                    <td><span style="color: #D66A44; font-weight: 600;">Gap:</span> Brand goes silent post payment. No automated CRM follow-up.</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

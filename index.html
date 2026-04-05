@@ -28,10 +28,30 @@
             print-color-adjust: exact !important;
         }
 
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .toc-link {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-main);
+        }
+
+        .section-anchor {
+            scroll-margin-top: 12mm;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            background-color: #EAEAEA;
+            background-color: #EAEAEA; /* Screen background */
             line-height: 1.65;
             padding: 2rem;
             display: flex;
@@ -39,7 +59,7 @@
         }
 
         .document-wrapper {
-            width: 210mm;
+            width: 210mm; /* A4 Width */
             display: flex;
             flex-direction: column;
             gap: 14mm;
@@ -89,14 +109,14 @@
         /* --- Layout Foundations --- */
         .page {
             width: 210mm;
-            min-height: 297mm;
-            height: auto;
+            height: 297mm;
+            min-height: 297mm; /* A4 Height */
             padding: 20mm;
             position: relative;
             background-color: var(--bg-paper);
             display: flex;
             flex-direction: column;
-            overflow: visible;
+            overflow: hidden; /* Contains full-bleed elements safely */
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             flex: 0 0 auto;
         }
@@ -125,45 +145,43 @@
         /* --- Cover Page --- */
         .cover {
             padding: 0;
-            background-color: var(--primary-dark);
-            height: 297mm;
-            min-height: 297mm;
+            background-color: var(--bg-paper);
+            display: grid;
+            grid-template-rows: 112mm 1fr;
             overflow: hidden;
         }
 
         .cover-image-wrapper {
-            height: 55%;
             width: 100%;
             position: relative;
             overflow: hidden;
-            flex: 0 0 55%;
+            background: var(--bg-offset);
         }
-        
+
         .cover-image-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, var(--primary-dark), transparent);
+            content: none;
         }
 
         .cover-content {
-            padding: 20mm;
-            height: 45%;
-            flex: 0 0 45%;
+            padding: 18mm 20mm 20mm 20mm;
+            background: var(--primary-dark);
+            color: white;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 0;
         }
 
         .cover-content h1 {
             color: white;
-            font-size: 3.8rem;
+            font-size: 3.6rem;
             font-weight: 500;
-            line-height: 1.1;
+            line-height: 1.02;
             margin-bottom: 1rem;
+        }
+
+        .cover-title-block {
+            max-width: 86%;
         }
 
         .cover-meta-grid {
@@ -387,15 +405,10 @@
         }
 
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0;
-            }
-
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #ffffff !important;
+                background: white !important;
                 width: auto !important;
                 height: auto !important;
             }
@@ -413,9 +426,10 @@
             .page,
             .page-break {
                 display: block !important;
+                position: relative !important;
                 width: 210mm !important;
-                min-height: 297mm !important;
                 height: 297mm !important;
+                min-height: 297mm !important;
                 max-height: 297mm !important;
                 margin: 0 !important;
                 padding: 20mm !important;
@@ -428,7 +442,6 @@
                 break-before: auto !important;
                 break-after: page !important;
                 break-inside: avoid-page !important;
-                background: #ffffff !important;
             }
 
             .page:last-child,
@@ -439,24 +452,18 @@
 
             .cover {
                 padding: 0 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                min-height: 297mm !important;
-                max-height: 297mm !important;
-                overflow: hidden !important;
+                display: grid !important;
+                grid-template-rows: 112mm 1fr !important;
+                background: var(--bg-paper) !important;
             }
 
             .cover-image-wrapper {
                 display: block !important;
-                position: relative !important;
-                width: 100% !important;
-                height: 55% !important;
-                min-height: 55% !important;
-                max-height: 55% !important;
-                flex: 0 0 55% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
                 overflow: hidden !important;
+                position: relative !important;
             }
 
             .cover-image-wrapper img,
@@ -471,33 +478,28 @@
             }
 
             .cover-content {
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                padding: 18mm 20mm 20mm 20mm !important;
+                box-sizing: border-box !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: space-between !important;
-                width: 100% !important;
-                height: 45% !important;
-                min-height: 45% !important;
-                max-height: 45% !important;
-                flex: 0 0 45% !important;
-                padding: 20mm !important;
-                box-sizing: border-box !important;
-                overflow: hidden !important;
+                background: var(--primary-dark) !important;
             }
 
             .cover-image-wrapper::after {
-                height: 50% !important;
+                content: none !important;
             }
 
             .split-hero,
             .image-card-grid,
             .stats-grid,
             .visual-list-item,
-            .journey-step-card,
-            .pull-quote,
-            .dark-feature-panel,
-            .elegant-table {
-                page-break-inside: avoid !important;
+            .journey-step-card {
                 break-inside: avoid-page !important;
+                page-break-inside: avoid !important;
             }
 
             .dark-feature-panel {
@@ -511,9 +513,7 @@
                 max-width: 100% !important;
             }
 
-            .vl-num {
-                -webkit-text-stroke: 1px var(--text-muted);
-            }
+            .vl-num { -webkit-text-stroke: 1px var(--text-muted); }
         }
     </style>
 </head>
@@ -529,10 +529,10 @@
             </div>
             
             <div class="cover-content">
-                <div>
+                <div class="cover-title-block">
                     <span class="kicker" style="color: var(--accent-gold); margin-bottom: 1rem;">Marketing Strategy Report</span>
                     <h1>Omnichannel<br>Marketing Audit</h1>
-                    <h3 style="color: white; font-weight: 300; font-family: 'Inter', sans-serif; font-size: 1.4rem;">Borrelli Crafters</h3>
+                    <h3 style="color: white; font-weight: 300; font-family: 'Inter', sans-serif; font-size: 1.4rem; margin-bottom: 0;">Borrelli Crafters</h3>
                 </div>
                 
                 <div class="cover-meta-grid">
@@ -551,25 +551,25 @@
         </div>
 
         <!-- TABLE OF CONTENTS -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="toc">
             <span class="kicker">Document Overview</span>
             <h2 class="hero-title">Table of Contents</h2>
             
             <ul class="toc-list">
-                <li class="toc-item"><span class="toc-text">1. Executive Summary</span></li>
-                <li class="toc-item"><span class="toc-text">2. Business Overview</span></li>
-                <li class="toc-item"><span class="toc-text">3. Competitive Landscape</span></li>
-                <li class="toc-item"><span class="toc-text">4. Market Segmentation</span></li>
-                <li class="toc-item"><span class="toc-text">5. Customer Segmentation Strategy</span></li>
-                <li class="toc-item"><span class="toc-text">6. Current State Journey Map</span></li>
-                <li class="toc-item"><span class="toc-text">7. Future State Journey & Recommendations</span></li>
-                <li class="toc-item"><span class="toc-text">8. References</span></li>
-                <li class="toc-item" style="margin-top: 3rem;"><span class="toc-text" style="color: var(--text-muted);">9. Appendices</span></li>
+                <li class="toc-item"><a class="toc-link" href="#executive-summary"><span class="toc-text">1. Executive Summary</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#business-overview"><span class="toc-text">2. Business Overview</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#competitive-landscape"><span class="toc-text">3. Competitive Landscape</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#market-segmentation"><span class="toc-text">4. Market Segmentation</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#customer-segmentation-strategy"><span class="toc-text">5. Customer Segmentation Strategy</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#current-state-journey-map"><span class="toc-text">6. Current State Journey Map</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#future-state-recommendations"><span class="toc-text">7. Future State Journey & Recommendations</span></a></li>
+                <li class="toc-item"><a class="toc-link" href="#references"><span class="toc-text">8. References</span></a></li>
+                <li class="toc-item" style="margin-top: 3rem;"><a class="toc-link" href="#appendix-1"><span class="toc-text" style="color: var(--text-muted);">9. Appendices</span></a></li>
             </ul>
         </div>
 
         <!-- 1. EXECUTIVE SUMMARY -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="executive-summary">
             <span class="kicker">Section 01</span>
             <h2 class="hero-title">Executive Summary</h2>
 
@@ -617,7 +617,7 @@
         </div>
 
         <!-- 2. BUSINESS OVERVIEW -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="business-overview">
             <span class="kicker">Section 02</span>
             <h2 class="hero-title">Business Overview</h2>
             
@@ -664,7 +664,7 @@
         </div>
 
         <!-- 3. COMPETITIVE LANDSCAPE -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="competitive-landscape">
             <span class="kicker">Section 03</span>
             <h2 class="hero-title">Competitive Landscape</h2>
             
@@ -694,7 +694,7 @@
         </div>
 
         <!-- 4. MARKET SEGMENTATION -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="market-segmentation">
             <span class="kicker">Section 04</span>
             <h2 class="hero-title">Market Segmentation</h2>
             
@@ -740,7 +740,7 @@
         </div>
 
         <!-- 5. CLV SEGMENTATION -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="customer-segmentation-strategy">
             <span class="kicker">Section 05</span>
             <h2 class="hero-title">Customer Segmentation Strategy</h2>
             
@@ -781,7 +781,7 @@
         </div>
 
         <!-- 6. CURRENT STATE JOURNEY MAP -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="current-state-journey-map">
             <span class="kicker">Section 06</span>
             <h2 class="hero-title">Current State Journey Map</h2>
             <p style="font-size: 1.1rem; margin-bottom: 3rem;">The following visual flow details the customer journey for Richard and Elizabeth, mapping their pain points, internal ownership, and critical gaps across the first five stages of acquisition.</p>
@@ -972,7 +972,7 @@
         </div>
 
         <!-- 7. FUTURE STATE & RECOMMENDATIONS -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="future-state-recommendations">
             <span class="kicker">Section 07</span>
             <h2 class="hero-title">Future State & Recommendations</h2>
             
@@ -1026,7 +1026,7 @@
         </div>
 
         <!-- 8. REFERENCES -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="references">
             <span class="kicker">Section 08</span>
             <h2 class="hero-title">References</h2>
             <ul style="font-size: 0.95rem; color: var(--text-muted); line-height: 2; margin-top: 2rem; list-style-type: none; padding-left: 0;">
@@ -1049,7 +1049,7 @@
         </div>
 
         <!-- 9. APPENDICES -->
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="appendix-1">
             <div style="background: var(--primary-main); color: white; padding: 4rem 20mm; margin: -20mm -20mm 3rem -20mm; text-align: center; border-bottom: 8px solid var(--accent-gold);">
                 <span class="kicker">Appendix 01</span>
                 <h2 style="color: white; font-size: 2.5rem; margin-bottom: 0;">Segmentation Infographic</h2>
@@ -1101,7 +1101,7 @@
             </div>
         </div>
 
-        <div class="page page-break">
+        <div class="page page-break section-anchor" id="appendix-2">
             <div style="background: var(--primary-main); color: white; padding: 4rem 20mm; margin: -20mm -20mm 3rem -20mm; text-align: center; border-bottom: 8px solid var(--accent-gold);">
                 <span class="kicker">Appendix 02</span>
                 <h2 style="color: white; font-size: 2.5rem; margin-bottom: 0;">10-Stage Buyer Journey Map</h2>

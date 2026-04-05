@@ -42,7 +42,8 @@
             width: 210mm;
             display: flex;
             flex-direction: column;
-            gap: 14mm;
+            gap: 18mm;
+            align-items: center;
         }
 
         /* --- Typography --- */
@@ -95,9 +96,12 @@
             background-color: var(--bg-paper);
             display: flex;
             flex-direction: column;
-            overflow: visible;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid rgba(17, 32, 24, 0.08);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             flex: 0 0 auto;
+            isolation: isolate;
+            z-index: 0;
         }
 
         .page-break {
@@ -261,8 +265,10 @@
             background-color: var(--primary-dark);
             color: white;
             padding: 4rem 20mm;
-            margin: 2rem -20mm; /* Full bleed */
+            margin: 2rem -20mm;
             break-inside: avoid;
+            position: relative;
+            z-index: 1;
         }
 
         .dark-feature-panel h3 { color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 1rem;}

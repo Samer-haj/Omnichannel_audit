@@ -515,6 +515,31 @@
 
             .vl-num { -webkit-text-stroke: 1px var(--text-muted); }
         }
+    
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .page[id] {
+            scroll-margin-top: 20px;
+        }
+
+        .toc-link {
+            display: inline-block;
+            width: 100%;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 3;
+        }
+
+        .toc-link:hover .toc-text,
+        .toc-link:focus .toc-text {
+            color: var(--primary-main);
+        }
+
     </style>
 </head>
 <body>
@@ -1167,6 +1192,26 @@
         </div>
 
     </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.toc-link[href^="#"]').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var targetId = this.getAttribute('href').slice(1);
+                var target = document.getElementById(targetId);
+                if (!target) return;
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (history.replaceState) {
+                    history.replaceState(null, '', '#' + targetId);
+                } else {
+                    location.hash = targetId;
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>

@@ -34,7 +34,6 @@
             background-color: #EAEAEA;
             line-height: 1.65;
             padding: 2rem;
-            margin: 0;
             display: flex;
             justify-content: center;
         }
@@ -44,7 +43,6 @@
             display: flex;
             flex-direction: column;
             gap: 14mm;
-            align-items: center;
         }
 
         /* --- Typography --- */
@@ -92,6 +90,7 @@
         .page {
             width: 210mm;
             min-height: 297mm;
+            height: auto;
             padding: 20mm;
             position: relative;
             background-color: var(--bg-paper);
@@ -100,7 +99,6 @@
             overflow: visible;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             flex: 0 0 auto;
-            box-sizing: border-box;
         }
 
         .page-break {
@@ -128,8 +126,8 @@
         .cover {
             padding: 0;
             background-color: var(--primary-dark);
-            min-height: 297mm;
             height: 297mm;
+            min-height: 297mm;
             overflow: hidden;
         }
 
@@ -385,14 +383,19 @@
         /* --- Print Rules --- */
         @page {
             size: A4 portrait;
-            margin: 0;
+            margin: 0; 
         }
 
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
-                background: white !important;
+                background: #ffffff !important;
                 width: auto !important;
                 height: auto !important;
             }
@@ -410,14 +413,14 @@
             .page,
             .page-break {
                 display: block !important;
-                position: relative !important;
                 width: 210mm !important;
                 min-height: 297mm !important;
-                height: auto !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
                 margin: 0 !important;
                 padding: 20mm !important;
                 box-sizing: border-box !important;
-                overflow: visible !important;
+                overflow: hidden !important;
                 box-shadow: none !important;
                 page-break-before: auto !important;
                 page-break-after: always !important;
@@ -425,6 +428,7 @@
                 break-before: auto !important;
                 break-after: page !important;
                 break-inside: avoid-page !important;
+                background: #ffffff !important;
             }
 
             .page:last-child,
@@ -434,44 +438,54 @@
             }
 
             .cover {
-                min-height: 297mm !important;
-                height: 297mm !important;
                 padding: 0 !important;
                 display: flex !important;
                 flex-direction: column !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-height: 297mm !important;
                 overflow: hidden !important;
             }
 
             .cover-image-wrapper {
                 display: block !important;
+                position: relative !important;
+                width: 100% !important;
                 height: 55% !important;
                 min-height: 55% !important;
                 max-height: 55% !important;
                 flex: 0 0 55% !important;
                 overflow: hidden !important;
-                position: relative !important;
             }
 
             .cover-image-wrapper img,
             .cover-image-wrapper .img-cover {
                 width: 100% !important;
                 height: 100% !important;
+                min-height: 100% !important;
+                max-height: 100% !important;
                 object-fit: cover !important;
                 object-position: center center !important;
                 display: block !important;
             }
 
             .cover-content {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                width: 100% !important;
                 height: 45% !important;
                 min-height: 45% !important;
                 max-height: 45% !important;
                 flex: 0 0 45% !important;
                 padding: 20mm !important;
                 box-sizing: border-box !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: space-between !important;
                 overflow: hidden !important;
+            }
+
+            .cover-image-wrapper::after {
+                height: 50% !important;
             }
 
             .split-hero,
@@ -481,9 +495,9 @@
             .journey-step-card,
             .pull-quote,
             .dark-feature-panel,
-            table {
-                break-inside: avoid-page !important;
+            .elegant-table {
                 page-break-inside: avoid !important;
+                break-inside: avoid-page !important;
             }
 
             .dark-feature-panel {
@@ -501,13 +515,6 @@
                 -webkit-text-stroke: 1px var(--text-muted);
             }
         }
-
-        @media screen {
-            .page + .page {
-                margin-top: 0;
-            }
-        }
-
     </style>
 </head>
 <body>

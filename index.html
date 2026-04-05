@@ -40,8 +40,9 @@
 
         .document-wrapper {
             width: 210mm; /* A4 Width */
-            background-color: var(--bg-paper);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 14mm;
         }
 
         /* --- Typography --- */
@@ -87,13 +88,17 @@
 
         /* --- Layout Foundations --- */
         .page {
-            padding: 20mm;
+            width: 210mm;
+            height: 297mm;
             min-height: 297mm; /* A4 Height */
+            padding: 20mm;
             position: relative;
             background-color: var(--bg-paper);
             display: flex;
             flex-direction: column;
             overflow: hidden; /* Contains full-bleed elements safely */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            flex: 0 0 auto;
         }
 
         .page-break {
@@ -127,6 +132,8 @@
             height: 55%;
             width: 100%;
             position: relative;
+            overflow: hidden;
+            flex: 0 0 55%;
         }
         
         .cover-image-wrapper::after {
@@ -142,6 +149,7 @@
         .cover-content {
             padding: 20mm;
             height: 45%;
+            flex: 0 0 45%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -376,11 +384,87 @@
         }
 
         @media print {
-            body { background: none; padding: 0; }
-            .document-wrapper { box-shadow: none; width: 100%; }
-            .page { margin: 0; width: 210mm; min-height: 297mm; padding: 20mm; box-sizing: border-box; }
-            .dark-feature-panel { margin: 2rem 0; padding: 3rem; }
-            .img-full-bleed { margin: 2rem 0; width: 100%; }
+            html, body {
+                width: 210mm;
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            body {
+                display: block;
+            }
+
+            .document-wrapper {
+                width: 210mm;
+                display: block;
+            }
+
+            .page {
+                margin: 0;
+                width: 210mm;
+                height: 297mm;
+                min-height: 297mm;
+                padding: 20mm;
+                box-sizing: border-box;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+
+            .cover {
+                padding: 0 !important;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .cover-image-wrapper {
+                height: 55% !important;
+                flex: 0 0 55% !important;
+                min-height: 0 !important;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .cover-image-wrapper img,
+            .cover-image-wrapper .img-cover {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                object-position: center center !important;
+                display: block;
+            }
+
+            .cover-content {
+                height: 45% !important;
+                flex: 0 0 45% !important;
+                min-height: 0 !important;
+                padding: 20mm !important;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .cover-image-wrapper::after {
+                height: 50%;
+            }
+
+            .dark-feature-panel {
+                margin: 2rem 0;
+                padding: 3rem;
+            }
+
+            .img-full-bleed {
+                margin: 2rem 0;
+                width: 100%;
+            }
+
             .vl-num { -webkit-text-stroke: 1px var(--text-muted); }
         }
     </style>
